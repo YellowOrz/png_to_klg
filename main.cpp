@@ -89,19 +89,17 @@ void convertToKlg(
                     getcwd(NULL, 0)) + "/" +
                     it->second.second;
 
-        IplImage *img = 
-            cvLoadImage(strAbsPath.c_str(), 
-                        CV_LOAD_IMAGE_UNCHANGED);
-        if(img == NULL)
+        cv::Mat img = cv::imread(strAbsPath.c_str(), cv::IMREAD_UNCHANGED);
+        if(!img.data)
         {
             fclose(logFile);
             return;
         }
 
-        int32_t imageSize = img->height * img->width * sizeof(unsigned char) * 3;
+        int32_t imageSize = img.cols * img.rows * sizeof(unsigned char) * 3;
 
         unsigned char * rgbData = 0;
-        rgbData = (unsigned char *)img->imageData;
+        rgbData = (unsigned char *)img.data;
 
         std::cout << '\r'
                   << std::setw(4) << std::setfill('0') << count << " / "
@@ -124,7 +122,7 @@ void convertToKlg(
         /// RGB buffer
         fwrite(rgbData, imageSize, 1, logFile);
 
-        cvReleaseImage(&img);
+//        cvReleaseImage(&img);
         depth.release();
     }
     std::cout << std::endl;
