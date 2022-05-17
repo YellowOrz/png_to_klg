@@ -19,7 +19,7 @@ with open(log_path, 'w') as f:
         for i, (depth_path, color_path) in enumerate(zip(depth_paths, color_paths)):
             depth_filename = depth_path.split("/")[-1]
             color_filename = color_path.split("/")[-1]
-            f.write("{} {}/{} {} {}/{}".format(idx, depth_name, depth_filename, idx, color_name, color_filename))
+            f.write("{} {}/{} {} {}/{}\n".format(idx, depth_name, depth_filename, idx, color_name, color_filename))
             idx += 1
 
     else:
@@ -27,6 +27,6 @@ with open(log_path, 'w') as f:
             infos = ft.readlines()
             infos.pop(0)
             for info in infos:
-                _, depth_filename, color_filename = info.split(',')
-                f.write("{} {}/{} {} {}/{}".format(idx, depth_name, depth_filename, idx, color_name, color_filename))
+                _, depth_filename, color_filename = info[:-1].split(',')
+                f.write("{} {}/{} {} {}/{}\n".format(idx, depth_name, depth_filename, idx, color_name, color_filename))
                 idx += 1

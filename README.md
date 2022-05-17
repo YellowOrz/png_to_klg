@@ -1,7 +1,9 @@
 
-- support opencv4
+- support opencv4.x
+- use the parameter `-s` to specify the depth map scale
 
 ---
+
 origin README
 
 
